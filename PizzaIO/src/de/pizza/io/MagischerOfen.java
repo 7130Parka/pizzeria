@@ -1,16 +1,15 @@
 package de.pizza.io;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MagischerOfen {
 
-	public PizzaBrot backe(String ... zutaten) {
-		List<String> zutatenListe = Arrays.asList(zutaten);
-		if( 2 == zutatenListe.size()){
-			return new PizzaBrot();			
-		}
-		return null;
+	public Pizza backe(String ... zutaten) {
+		List<String> zutatenListe = new ArrayList(Arrays.asList(zutaten));
+		zutatenListe.remove("teig");
+		return new Pizza(zutatenListe);
 	}
 
 }
