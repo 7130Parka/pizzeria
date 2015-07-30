@@ -7,7 +7,15 @@ import org.junit.Test;
 
 public class PizzaBestellTest {
 
-	public class HolzTisch implements Tisch {
+	@Test
+	public void kannFertigesPizzabrotBestellen() {
+		BestellungsAnnahme bestellungsAnnahme = new BestellungsAnnahme();
+		HolzTisch tisch = new HolzTisch();
+		bestellungsAnnahme.bestelle("Pizzabrot", tisch);
+		assertThat(tisch.wasLiegtAufDemTisch(), isA(Pizzabrot.class));
+	}
+
+	private static class HolzTisch implements Tisch {
 
 		private Pizzabrot pizzabrot;
 
@@ -23,13 +31,5 @@ public class PizzaBestellTest {
 		}
 
 	}
-
-	@Test
-	public void kannFertigesPizzabrotBestellen() {
-		BestellungsAnnahme bestellungsAnnahme = new BestellungsAnnahme();
-		HolzTisch tisch = new HolzTisch();
-		bestellungsAnnahme.bestelle("Pizzabrot", tisch);
-		assertThat(tisch.wasLiegtAufDemTisch(), isA(Pizzabrot.class));
-	}
-
+	
 }
