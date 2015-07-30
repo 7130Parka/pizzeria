@@ -6,9 +6,9 @@ public class BestellungsAnnahme {
 		if (bestellung.equals("Pizza Margarita")) {
 			tisch.liefere(new Pizza("Tomate", "Käse"));
 		} else {
-			tisch.liefere(new Pizzabrot());
+			tisch.liefere(new Pizza("Tomate"));
 		}
-		
+
 	}
 
 }

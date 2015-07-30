@@ -1,11 +1,8 @@
 package de.pizza.oi;
 
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.core.Is.isA;
-import static org.junit.Assert.*;
+import static de.pizza.oi.PizzaMatcher.istBelegtMit;
+import static org.junit.Assert.assertThat;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.core.Is;
 import org.junit.Test;
 
 public class PizzaBestellTest {
@@ -15,15 +12,13 @@ public class PizzaBestellTest {
 	@Test
 	public void kannPizzabrotBestellen() {
 		bestelle("Pizzabrot");
-		assertThat(tisch.wasLiegtAufDemTisch(), isA(Pizzabrot.class));
+		assertThat(tisch.wasLiegtAufDemTisch(), istBelegtMit("Tomate"));
 	}
-	
+
 	@Test
-	public void kannPizzaMargaritaBestellen() throws Exception {
+	public void kannPizzaMargaritaBestellen() {
 		bestelle("Pizza Margarita");
-		Pizza pizza = (Pizza)tisch.wasLiegtAufDemTisch();
-		assertThat(pizza, isA(Pizza.class));
-		assertThat(pizza.getZutaten(), hasItems("Tomate", "Käse"));
+		assertThat(tisch.wasLiegtAufDemTisch(), istBelegtMit("Tomate", "Käse"));
 	}
 
 	private void bestelle(String bestellung) {
@@ -33,19 +28,19 @@ public class PizzaBestellTest {
 
 	private static class HolzTisch implements Tisch {
 
-		private Pizzabrot pizzabrot;
+		private Pizza pizzabrot;
 
 		@Override
-		public void liefere(Pizzabrot pizzabrot) {
+		public void liefere(Pizza pizzabrot) {
 			this.pizzabrot = pizzabrot;
 
 		}
 
 		@Override
-		public Pizzabrot wasLiegtAufDemTisch() {
+		public Pizza wasLiegtAufDemTisch() {
 			return this.pizzabrot;
 		}
 
 	}
-	
+
 }
