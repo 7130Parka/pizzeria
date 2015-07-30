@@ -22,7 +22,11 @@ public class PizzaMatcher extends TypeSafeMatcher<Pizza> {
 
 	@Override
 	protected boolean matchesSafely(Pizza pizza) {
-		return pizza.getZutaten().equals(this.zutaten);
+		return pizza.getBelag().equals(this.zutaten);
+	}
+
+	public static PizzaMatcher hatKeinenBelag() {
+		return istBelegtMit();
 	}
 
 	public static PizzaMatcher istBelegtMit(String... zutaten) {
