@@ -1,6 +1,8 @@
 package de.pizza.oi;
 
 import static de.pizza.oi.PizzaMatcher.istBelegtMit;
+import static java.lang.Boolean.FALSE;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
@@ -21,9 +23,14 @@ public class PizzaBestellTest {
 		assertThat(tisch.wasLiegtAufDemTisch(), istBelegtMit("Tomate", "K‰se"));
 	}
 
-	private void bestelle(String bestellung) {
-		BestellungsAnnahme bestellungsAnnahme = new BestellungsAnnahme();
-		bestellungsAnnahme.bestelle(bestellung, tisch);
+	@Test
+	public void ungueltigeBestellung() {
+		BestellAntwort antwort = bestelle("Pizza mit Scheiﬂe");
+		assertThat(antwort.isAngenommen(), is(FALSE));
+	}
+
+	private BestellAntwort bestelle(String bestellung) {
+		return new Kellner(new Kueche()).bestelle(bestellung, tisch);
 	}
 
 	private static class HolzTisch implements Tisch {
