@@ -1,29 +1,35 @@
 package de.pizza.oi;
 
 import static org.hamcrest.core.Is.isA;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
-import org.hamcrest.core.Is;
 import org.junit.Test;
 
-public class PizzaBestellTest implements Tisch {
+public class PizzaBestellTest {
 
-	private Pizzabrot pizzabrot;
+	public class HolzTisch implements Tisch {
+
+		private Pizzabrot pizzabrot;
+
+		@Override
+		public void liefere(Pizzabrot pizzabrot) {
+			this.pizzabrot = pizzabrot;
+
+		}
+
+		@Override
+		public Pizzabrot wasLiegtAufDemTisch() {
+			return this.pizzabrot;
+		}
+
+	}
 
 	@Test
 	public void kannFertigesPizzabrotBestellen() {
 		BestellungsAnnahme bestellungsAnnahme = new BestellungsAnnahme();
-		bestellungsAnnahme.bestelle("Pizzabrot", this);
-		assertThat(this.wasLiegtAufDemTisch(), isA(Pizzabrot.class));
-	}
-
-	public Pizzabrot wasLiegtAufDemTisch() {
-		return pizzabrot;
-	}
-
-	@Override
-	public void liefere(Pizzabrot pizzabrot) {
-		this.pizzabrot = pizzabrot;
+		HolzTisch tisch = new HolzTisch();
+		bestellungsAnnahme.bestelle("Pizzabrot", tisch);
+		assertThat(tisch.wasLiegtAufDemTisch(), isA(Pizzabrot.class));
 	}
 
 }
