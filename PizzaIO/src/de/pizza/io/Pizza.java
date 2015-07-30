@@ -40,4 +40,8 @@ public class Pizza {
 		return fertig;
 	}
 
+	public void erhitze() {
+		fertig = true;
+	}
+
 }

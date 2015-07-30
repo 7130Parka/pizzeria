@@ -6,12 +6,18 @@ public class SteinOfen implements Ofen {
 
 	@Override
 	public void backe(Pizza pizza) {
-		// TODO Auto-generated method stub
-
+		if(heiss){
+			pizza.erhitze();
+		}
 	}
 
 	public boolean istHeiss() {
 		return heiss;
+	}
+
+	public SteinOfen aufheizen() {
+		heiss = true;
+		return this;
 	}
 
 }

@@ -1,14 +1,15 @@
 package de.pizza.io;
 
 import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class SteinOfenTest {
+
+	private SteinOfen steinOfen = new SteinOfen();
 
 	private static Pizza nichtGebackenePizza() {
 		return Pizza.ohneBelag();
@@ -16,25 +17,33 @@ public class SteinOfenTest {
 	
 	@Test
 	public void zuBeginnDesArbeitstagesIstDerSteinofenKalt() {
-		SteinOfen steinOfen = new SteinOfen();
 		assertThat(steinOfen.istHeiss(), is(FALSE));
 	}
 
 	@Test
 	public void inNichtAufgeheiztemOfenBleibtPizzaRoh() {
-		SteinOfen steinOfen = new SteinOfen();
 		Pizza pizza = nichtGebackenePizza();
 		steinOfen.backe(pizza);
 		assertThat(pizza.istFertigGebacken(), is(FALSE));
 	}
 
 	@Test
-	@Ignore
-	public void test() {
-		SteinOfen steinOfen = new SteinOfen();
-		// steinOfen.aufwärmen();
-		// steinOfen.backe(pizza);
-		fail("Not yet implemented");
+	public void ofenKannAufgeheiztWerden() {
+		steinOfen.aufheizen();
+		assertThat(steinOfen.istHeiss(), is(TRUE));
 	}
+	
+	@Test
+	public void inAufgeheiztemOfenWirdPizzaFertiggebacken() {
+		SteinOfen steinOfen = backbereiterOfen();
+		Pizza pizza = nichtGebackenePizza();
+		steinOfen.backe(pizza);
+		assertThat(pizza.istFertigGebacken(), is(TRUE));
+	}
+
+	private SteinOfen backbereiterOfen() {
+		return new SteinOfen().aufheizen();
+	}
+	
 
 }
